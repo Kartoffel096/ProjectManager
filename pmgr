@@ -1,3 +1,592 @@
+
 #!/bin/bash
 
-print "Trial"
+####Automation of Projects####
+
+
+##Dependency: jq
+##TODO: Include in Makefile/Installscript
+
+##New Command for Whole thing
+function pmgr (){
+	
+	#########################################
+	##Defining all needed Variables Locally##
+	#########################################
+
+	local cfgf="/home/$USER/Dokumente/Projects/.Config/config.json"
+	local cfgd="/home/$USER/Dokumente/Projects/.Config"
+	local GH_User
+	local GH_Token
+	local projectdir
+	local maineditor
+	local secondaryeditor
+	local setup=false
+	local priv=true
+	local quiet=false
+	local edit=false
+
+	###########################
+	##Variable Reset Function##
+	###########################
+
+	function resetArgs () {
+		priv=true
+		quiet=false
+		edit=false
+	}
+
+	####################################################
+	##Setup Function for getting Variables from Config##
+	####################################################
+
+	function psetup() {
+
+		if [[ "$edit" == true ]]; then 
+			resetArgs
+			psetup "3"
+			return 0;
+		fi
+
+		case "$1" in
+			"1")
+
+				if ! [ -x "$(command -v jq)" ]; then
+					psetup "5"
+					return 3
+				fi
+
+				if [ ! -d "$cfgd" ]; then
+					echo "Pmgr Directorys not found"
+					read -p "Do you wan't to create them ? (y/n)" -n 1 -r
+					if [[ $REPLY =~ ^[Yy]$ ]]; then
+						echo
+						echo "Creating Pmgr Directorys"
+						psetup "4"
+					elif [[ $REPLY =~ ^[Nn]$ ]]; then
+						echo
+						echo "Setup skipped"
+						sleep 2
+						clear
+						return 3;
+					else
+						echo
+						echo "Invalid Input"
+						echo "Skipping..."
+						sleep 2
+						clear
+						return 3;
+					fi
+				fi
+
+				if [ -f "$cfgf" ]; then
+					psetup "2"
+				else
+					echo "Config file not found"
+					echo "Creating new Config:"
+					read -p "Create Config with default Values ? (y/n)" -n 1 -r
+					if [[ $REPLY =~ ^[Yy]$ ]]; then
+						echo
+						echo "Creating default Config, please edit and set you're Values with pmgr -s -e"
+						touch "$cfgf"
+						{
+							echo '{'
+							echo '	"GH_Token": "",'
+    						echo '	"GH_User": "",'
+    						echo '	"version": "2.5.15",'
+    						echo '	"projectdir":' '"/home/'"$USER"'/Dokumente/Projects",'
+    						echo '	"maineditor": "code",'
+    						echo '	"secondaryeditor": "subl"'
+							echo '}'
+						} >> "$cfgf"
+						echo "Config Setup Done..."
+						sleep 3
+						clear
+					elif [[ $REPLY =~ ^[Nn]$ ]]; then
+						echo
+						echo "Creating User Guided Config:"
+						echo
+						read -p "Please set you're Project Directory:" -r
+						echo "Setting Project Dir to: $REPLY"
+						local pdir="$REPLY"
+						read -p "Please set you're Github Username:" -r
+						echo "Github Username set to $REPLY"
+						local uname="$REPLY"
+						read -p "Please set you're Github Token:" -r
+						echo "Github Token set to $REPLY"
+						local token="$REPLY"
+						echo "Which Editor do you wan't to use as main Editor"
+						echo "[1] VSCode"
+						echo "[2] Sublime"
+						echo "[3] Atom"
+						echo "[4] VIM"
+						read -p "Enter Number of Editor:"
+						case $REPLY in
+							"1") local medit="code";;
+							"2") local medit="subl";;
+							"3") local medit="atom";;
+							"4") local medit="vim";;
+							*) 
+								echo
+								echo "Invalid Input"
+								echo "Skipping..."
+								sleep 2
+								clear
+						esac
+						echo "Maineditor set to $REPLY"
+						echo "Which Editor do you wan't to use as Secondary Editor"
+						echo "[1] VSCode"
+						echo "[2] Sublime"
+						echo "[3] Atom"
+						echo "[4] VIM"
+						read -p "Enter Number of Editor:"
+						case $REPLY in
+							"1") local sedit="code";;
+							"2") local sedit="subl";;
+							"3") local sedit="atom";;
+							"4") local sedit="vim";;
+							*) 
+								echo
+								echo "Invalid Input"
+								echo "Skipping..."
+								sleep 2
+								clear
+						esac
+						echo "Secondary Editor set to $REPLY"
+						echo "Writing Config..."
+						touch "$cfgf"
+						{
+							echo '{'
+							echo '	"GH_Token":' '"'"$token"'"'','
+    						echo '	"GH_User":' '"'"$uname"'"'','
+    						echo '	"version": "2.5.15",'
+    						echo '	"projectdir":' '"'"$pdir"'",'
+    						echo '	"maineditor":' '"'"$medit"'",'
+    						echo '	"secondaryeditor:' '"'"$sedit"'"'
+							echo '}'
+						} >> "$cfgf"
+						echo "Config Setup Done..."
+						sleep 3
+						clear
+						psetup "0"
+					else		
+						echo "Invalid Input"
+						echo "Skipping..."
+						sleep 2
+						clear
+						return 3;
+					fi		
+				fi
+				;;
+			"2")
+					projectdir="$( jq -r '.projectdir' "$cfgf" )"
+					GH_User="$( jq -r '.GH_User' "$cfgf" )"
+					GH_Token="$( jq -r '.GH_Token' "$cfgf" )"
+					version="$( jq -r '.version' "$cfgf" )"
+					maineditor="$( jq -r '.maineditor' "$cfgf" )"
+					secondaryeditor="$( jq -r '.secondaryeditor' "$cfgf" )"
+					setup=true
+					;;
+			"3")
+				if [ -f "$cfgf" ]; then
+					local cur_dir="$(pwd)"
+					cd "$cfgd"
+					$secondaryeditor config.json
+					cd $cur_dir
+				else
+					psetup "1"
+				fi
+			;;
+			"4")
+				mkdir -p "$cfgd"
+				echo "Directory creation done"
+				psetup "1";;
+			"5")
+				echo "Pmgr needed Dependency jq not installed"
+				read -p "Do you want to install it ? (y/n)" -n 1 -r
+				if [[ $REPLY =~ ^[Yy]$ ]]; then
+					echo
+					echo "Installing jq"
+					sudo apt-get install jq -y
+					psetup "1"
+				elif [[ $REPLY =~ ^[Nn]$ ]]; then
+					echo
+					echo "Setup skipped"
+					sleep 2
+					clear
+					return 3
+				else
+					echo
+					echo "Invalid Input"
+					echo "Skipping..."
+					sleep 2
+					clear
+					return 3
+				fi
+				;;
+			*)
+				echo "Given Arguments $@ invalid";;
+		esac
+		resetArgs
+	}
+
+	########################################
+	###Function for Interpreting Arguments##
+	########################################
+	function ReadArgs() {
+		#TODO: Read all Arguments - Interpret them is respective Order and run the needed Functions
+
+		local ind=0
+		local args
+
+		##Populate args array with given Arguments
+		for i in "$@"
+		do
+			args+=($i)
+		done
+
+		#Iterate Args array and do what needs to be done based on Args
+		for i in "${args[@]}"
+		do
+			case $i in
+				"-n"|"--noout")
+					quiet=true;;
+				"-p"|"--public")
+					priv=false;;
+				"-e"|"--edit")
+					edit=true;;
+				*) echo;;
+			esac
+			((ind++))
+		done
+
+	}
+
+	###########################
+	##Defining Base Functions##
+	###########################
+
+	##Creating new Project from Scratch * -c | --create
+	function pcreate() {
+
+		local cur_dir="$(pwd)"
+
+		if [[ "$quiet" == true ]]; then
+			(
+			cd $projectdir
+			curl -H "Authorization: token $GH_Token" https://api.github.com/user/repos -d '{"name": "'$1'","private": '$priv'}'
+			git init $1
+			cd $1		
+			touch README.md
+			git add README.md
+			git commit -m "Initial Commit"
+			git branch -M master
+			git remote add origin git@github.com:$GH_User/$1.git
+			git push -u origin master
+			smerge .
+			$maineditor .
+			cd $cur_dir
+			) >/dev/null 2>&1
+		else
+			cd $projectdir
+			curl -H "Authorization: token $GH_Token" https://api.github.com/user/repos -d '{"name": "'$1'","private": '$priv'}'
+			git init $1
+			cd $1		
+			touch README.md
+			git add README.md
+			git commit -m "Initial Commit"
+			git branch -M master
+			git remote add origin git@github.com:$GH_User/$1.git
+			git push -u origin master
+			smerge .
+			$maineditor .
+			cd $cur_dir
+		fi	
+
+		resetArgs
+	
+	}
+
+	##Opening existing Project * -o | --open
+	function popen() {
+		#TODO if $2 is empty then do not try to create Project because name is missing
+		if [[  ! -z $1 ]]; then
+			cd
+			if [ ! -d "$projectdir/$1" ]; then
+				local cid
+				cid=$(curl -s -H "Authorization: token $GH_Token" https://api.github.com/repos/"$GH_User"/"$1" | jq -r .id)
+				if [[ $cid == null ]]; then
+					echo
+					echo "Project does not exist!"
+					echo 
+					read -p "Do you want to create it ? (y/n)" -n 1 -r
+					if [[ $REPLY =~ ^[Yy]$ ]]; then
+						echo "Creating new Project $1"
+						pcreate $1
+					elif [[ $REPLY =~ ^[Nn]$ ]]; then
+						echo
+						echo "Skipping..."
+						sleep 2
+						clear
+					else		
+						echo
+						echo "Invalid Input"
+					fi
+				else
+					echo
+					echo "Project does Exist Remotely"
+					echo
+					read -p "Do you want to clone it ? (y/n)" -n 1 -r
+					if [[ $REPLY =~ ^[Yy]$ ]]; then
+						echo
+						echo "Cloning Repository from Git"
+						cd $projectdir
+						mkdir $1
+						git clone https://$GH_User:$GH_Token@github.com/$GH_User/$1.git
+						cd $projectdir/$1
+						smerge .
+						$maineditor .
+					elif [[ $REPLY =~ ^[Nn]$ ]]; then
+						echo
+						echo "Skipping..."
+						sleep 2
+						clear
+					else		
+						echo
+						echo "Invalid Input"
+					fi
+				fi
+			else
+				echo "Opening $1"
+				cd "$projectdir/$1"
+				smerge .
+				$maineditor .
+			fi
+		else
+			echo "No Project Name given..."
+			echo "Skipping..."
+			sleep 2
+			clear
+		fi
+
+		resetArgs
+
+	}
+
+	##List all existing Projects * -l | --list
+	function plist () {
+		echo "Current Projects:"
+		local cur_dir="$(pwd)"
+		cd $projectdir
+		ls -D
+		cd $cur_dir
+
+		resetArgs
+
+	}
+
+	##Removes Project * -r | --remove
+	function prem () {
+		local cur_dir="$(pwd)"
+		
+		if [[ -d "$projectdir/$1" ]]; then
+			read -p "Do you really want to remove $1 (y/n)" -n 1 -r
+				if [[ $REPLY =~ ^[Yy]$ ]]; then
+					echo
+					echo "Deleting Project $1"
+					echo "Removing Local Repository..."
+					cd $projectdir
+					rm -r -d -f $1
+					cd $cur_dir
+					#Give respone if delete was successfull maybe with exit code ? 
+					echo "Removing Remote Repository..."
+					curl -X DELETE -H "Authorization: token $GH_Token" https://api.github.com/repos/"$GH_User"/"$1"
+				elif [[ $REPLY =~ ^[Nn]$ ]]; then
+					echo
+					echo "Skipping..."
+					clear
+				else		
+					echo
+					echo "Invalid Input"
+				fi				
+		else
+			echo "Project $1 does not exist"
+		fi
+
+
+		resetArgs
+
+	}
+
+	##Info Function gives all Information about the ProjectManager
+	function pinf () {
+		case "$1" in
+			"version")
+				echo "ProjectManager by FAO_Spikey version: $version";;
+			
+			*)	echo
+				echo "Call: pmgr [ARG1]... [Project]... [ARG2]"
+				echo "Project Manager to create, list and delete Projects you are working on - git inclusive"
+				echo "ARG1:"
+				echo "	-c, --create 		Creates a new Project in Projects Folder[ARG2]"
+				echo "	-o, --open 		Opens Project from Project Folder"
+				echo "	-l, --list 		Lists all available Projects"
+				echo "	-r, --remove 		Deletes a Project"
+				echo "	-v, --version		Shows Version and Copyright Information"
+				echo "	-u, --update 		Searches for Updates"
+				echo "	-s, --setup 		Setup Function to create or edit Config"
+				echo "  	--help 			Shows this Help dialog"
+				echo 
+				echo "ARG2:"
+				echo "	-n, --noout		Quiet Mode"
+				echo "	-p, --public 	Creates public Git Repository instead of Private"
+				echo "	-e, --edit 		Edits the Config only in combination with -s"
+				echo ;;
+		esac
+	}
+
+	#Update Function for Updating the Project Manager to the latest version
+	function pupd () {
+		local cur_dir="$(pwd)"
+		local rversion
+
+		function vercomp () {
+		    if [[ $1 == $2 ]]
+		    then
+		        return 0
+		    fi
+		    local IFS=.
+		    local i ver1=($1) ver2=($2)
+		    # fill empty fields in ver1 with zeros
+		    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++))
+		    do
+		        ver1[i]=0
+		    done
+		    for ((i=0; i<${#ver1[@]}; i++))
+		    do
+		        if [[ -z ${ver2[i]} ]]
+		        then
+		            # fill empty fields in ver2 with zeros
+		            ver2[i]=0
+		        fi
+		        if ((10#${ver1[i]} > 10#${ver2[i]}))
+		        then
+		            return 1
+		        fi
+		        if ((10#${ver1[i]} < 10#${ver2[i]}))
+		        then
+		            return 2
+		        fi
+		    done
+		    return 0
+		}
+
+		#TODO: Get config.json from git repository to tmp folder and read version info from it
+		cd /tmp
+		(wget --no-check-certificate --content-disposition "https://raw.githubusercontent.com/Kartoffel096/ProjectManager/main/config.json") >/dev/null 2>&1
+		sleep 1
+		rversion="$( jq -r '.version' "/tmp/config.json" )"
+		#Check Git for Version and compare to Version in current config if git version is newer then ask user to download new version else do nothing
+		rm config.json
+
+		vercomp $rversion $version
+	    case $? in
+	        0) #Equal Version
+				echo;;
+	        1) #remote newer
+				read -p "There is an Update available do you wan't to Update? (y/n)" -n 1 -r
+				if [[ $REPLY =~ ^[Yy]$ ]]; then
+					echo
+					echo "This action requires Sudo"
+					curl -sL https://github.com/Kartoffel096/ProjectManager/archive/main.tar.gz | tar xz
+					cd "ProjectManager-main"
+					sudo cp pmgr /bin/pmgr
+					rm "$cfgf"
+					{
+						echo '{'
+						echo '	"GH_Token":' '"'"$GH_Token"'"'','
+    					echo '	"GH_User":' '"'"$GH_User"'"'','
+    					echo '	"version":' '"'"$rversion"'",'
+    					echo '	"projectdir":' '"'"$projectdir"'",'
+    					echo '	"maineditor":' '"'"$maineditor"'",'
+    					echo '	"secondaryeditor":' '"'"$secondaryeditor"'"'
+						echo '}'
+					} >> "$cfgf"
+					cd /tmp
+					rm -r -d -f "ProjectManager-main"
+					version="$( jq -r '.version' "$cfgf" )"
+					echo "Updated to Version $version"
+					return 0
+				elif [[ $REPLY =~ ^[Nn]$ ]]; then
+					echo
+					echo "Not Updating"
+					echo "Skipping..."
+					sleep 2
+					clear
+					return 3
+				else
+					echo
+					echo "Invalid Input"
+					echo "Skipping..."
+					sleep 2
+					clear
+					return 3
+				fi;;
+	        2) #local newer
+				echo;;
+	    esac
+		cd $cur_dir
+		return 2
+		}
+
+	function pdbg () {
+		##Debug Function for testing different stuff
+
+		#This will store all listed Projects in 1 Variable --> Later use for Autocompletion ;; TODO: MAKE AN AUTOCOMPLETION!
+		cd $projectdir
+		local list=$(ls -d)
+		echo $list
+
+	}
+	####################
+	##End Base Defines##
+	####################
+	
+	##########################
+	##Calling Main Functions##
+	##########################
+
+	psetup "1"
+	pupd 
+	if [[ "$?" == 0 ]]; then
+		return 0
+	fi
+
+	if [[ "$setup" == "true" ]]; then
+		
+		ReadArgs $@
+
+		case "$1" in
+			"-c"|"--create")
+				pcreate "$2";;
+			"-o"|"--open")		
+				popen "$2";;
+			"-l"|"--list")		
+				plist "$2";;
+			"-r"|"--remove")	
+				prem "$2";;
+			"-s"|"--setup")
+				psetup "1";;
+			"-v"|"--version")	pinf "version";;
+			"-u"|"--update")	pupd "";;
+			"-dgb")				pdbg "" "$3";;
+			*)					pinf "";;
+		esac
+	else
+		return 3
+	fi
+
+	#####################################################
+}
+
+pmgr $@
