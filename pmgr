@@ -501,6 +501,7 @@ function pmgr (){
 					curl -sL https://github.com/Kartoffel096/ProjectManager/archive/main.tar.gz | tar xz
 					cd "ProjectManager-main"
 					sudo cp pmgr /bin/pmgr
+					sudo chmod +x /bin/pmgr
 					rm "$cfgf"
 					{
 						echo '{'
