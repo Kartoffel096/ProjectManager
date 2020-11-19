@@ -9,6 +9,10 @@
 
 ##New Command for Whole thing
 function pmgr (){
+	#################################
+	##GETTEXT alias for ease of use##
+	#################################
+	alias GETTEXT='gettext "PMGR"'
 	
 	##############################################
 	####Defining base strings for localization####
