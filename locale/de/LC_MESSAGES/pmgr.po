@@ -1,0 +1,216 @@
+# German translations for PMGR package.
+# Copyright (C) 2020 Kartoffel096 | LivelyBytes
+# This file is distributed under the same license as the PMR package.
+# Christian <email@gmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.5.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-20 09:42+0100\n"
+"PO-Revision-Date: 2020-11-20 09:43+0100\n"
+"Last-Translator: Christian <email@gmail.com>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "PMGR_MSG_DIR_NO"
+msgstr "Pmgr Verzeichnisse nicht gefunden"
+
+msgid "PMGR_MSG_DIR_C_Q"
+msgstr "Moechten Sie ein Verzeichniss erstellen? (Ja/Nein)"
+
+msgid "PMGR_MSG_DIR_C"
+msgstr "Pmgr Verzeichniss wird erstellt"
+
+msgid "PMGR_MSG_CFG_NO"
+msgstr "Konfigurationsdatei nicht gefunden"
+
+msgid "PMGR_MSG_CFG_C"
+msgstr "Erstelle eine neue Konfiguration:"
+
+msgid "PMGR_MSG_CFG_C_U"
+msgstr "Erstelle von Benutzer geleiteter Konfiguration:"
+
+msgid "PMGR_MSG_CFG_C_D_Q"
+msgstr "Konfiguration mit Standardwerten erstellen? (Ja/Nein)"
+
+msgid "PMGR_MSG_CFG_C_E"
+msgstr "Erstelle Standardkonfigurationsdatei, bitte bearbeiten und setzen Sie Ihre Werte mit pmgr -s -e"
+
+msgid "PMGR_MSG_CFG_DIR_Q"
+msgstr "Bitte geben Sie Ihr Projektverzeichniss an:"
+
+msgid "PMGR_MSG_CFG_DIR"
+msgstr "Setze Projektverzeichniss zu: $REPLY"
+
+msgid "PMGR_MSG_CFG_USR_Q"
+msgstr "Bitte geben sie Ihren Github Benutzernamen an:"
+
+msgid "PMGR_MSG_CFG_USR"
+msgstr "Setze Github Benutzername zu: $REPLY"
+
+msgid "PMGR_MSG_CFG_TKN_Q"
+msgstr "Bitte geben sie Ihren Github Token an:"
+
+msgid "PMGR_MSG_CFG_TKN"
+msgstr "Setze Github Token zu: $REPLY"
+
+msgid "PMGR_MSG_CFG_MEDIT_Q"
+msgstr "Welchen Editor moechten Sie als Haupteditor nutzen?"
+
+msgid "PMGR_MSG_CFG_MEDIT"
+msgstr "Setze Haupteditor zu: $REPLY"
+
+msgid "PMGR_MSG_CFG_SEDIT_Q"
+msgstr "Welchen Editor moechten Sie als Zweiteditor nutzen?"
+
+msgid "PMGR_MSG_CFG_EDIT_CODE"
+msgstr "[1] VSCode"
+
+msgid "PMGR_MSG_CFG_EDIT_SUBL"
+msgstr "[2] Sublime"
+
+msgid "PMGR_MSG_CFG_EDIT_ATOM"
+msgstr "[3] Atom"
+
+msgid "PMGR_MSG_CFG_EDIT_VIM"
+msgstr "[4] Vim"
+
+msgid "PMGR_MSG_CFG_EDIT_SET_Q"
+msgstr "Geben Sie die Nummer des Editors an:"
+
+msgid "PMGR_MSG_CFG_SEDIT"
+msgstr "Zweiteditor wurde zu $REPLY gesetzt"
+
+msgid "PMGR_MSG_CFG_WRITE"
+msgstr "Schreibe Konfiguration..."
+
+msgid "PMGR_MSG_CFG_DONE"
+msgstr "Konfigurations Installation fertig..."
+
+msgid "PMGR_MSG_DIR_DONE"
+msgstr "Verzeichniss wurde erstellt"
+
+msgid "PMGR_MSG_DEP_JQ"
+msgstr "Pmgr abhaengigkeit jq nicht installiert"
+
+msgid "PMGR_MSG_DEP_JQ_Q"
+msgstr "Moechten Sie es Installieren? (Ja/Nein)"
+
+msgid "PMGR_MSG_DEP_JQ_INST"
+msgstr "Installierre jq"
+
+msgid "PMGR_MSG_DEP_JQ_DONE"
+msgstr "jq wurde erfolgreich installiert - Version $jqversion"
+
+msgid "PMGR_MSG_SET_SKIP"
+msgstr "Installation uebersprungen"
+
+msgid "PMGR_MSG_ARG_INV"
+msgstr "Gegebene Argumente $@ nicht gueltig"
+
+msgid "PMGR_MSG_PRJ_C_Q"
+msgstr "Moechten Sie es erstellen? (Ja/Nein)"
+
+msgid "PMGR_MSG_PRJ_C"
+msgstr "Erstelle neues Projekt $1"
+
+msgid "PMGR_MSG_PRJ_REM"
+msgstr "Projekt existiert auf Github"
+
+msgid "PMGR_MSG_PRJ_REM_Q"
+msgstr "Moechten Sie es Kopieren? (Ja/Nein)"
+
+msgid "PMGR_MSG_PRJ_REM_GET"
+msgstr "Kopiere Projekt von Git"
+
+msgid "PMGR_MSG_PRJ_OPN"
+msgstr "oeffne $1"
+
+msgid "PMGR_MSG_PRJ_CUR"
+msgstr "Aktuelle Projekte"
+
+msgid "PMGR_MSG_PRJ_NAME_NO"
+msgstr "Kein Projektname eingegeben..."
+
+msgid "PMGR_MSG_DEL_Q"
+msgstr "Moechten Sie wirklich $1 loeschen? (Ja/Nein)"
+
+msgid "PMGR_MSG_PRJ_DEL"
+msgstr "Loesche Projekt $1"
+
+msgid "PMGR_MSG_PRJ_DEL_L"
+msgstr "Loesche lokales Projekt"
+
+msgid "PMGR_MSG_PRJ_DEL_REM"
+msgstr "Loesche Github Projekt..."
+
+msgid "PMGR_MSG_PRJ_NO"
+msgstr "Projekt $1 existiert nicht!"
+
+msgid "PMGR_MSG_VER"
+msgstr "ProjectManager von FAO_Spikey - Version: $version"
+
+msgid "PMGR_MSG_INF_CALL"
+msgstr "Aufruf: pmgr [ARG1]... [projekt]... [ARG2]"
+
+msgid "PMGR_MSG_INF"
+msgstr "Projekt Manager zum erstellen, auflisten und loeschen von Projekten an denen du arbeitest - Git inklusive"
+
+msgid "PMGR_MSG_INF_C"
+msgstr " -c, --create		Erstellt ein neues Projekt im Projektordner[ARG2]"
+
+msgid "PMGR_MSG_INF_O"
+msgstr " -o, --open		oeffnet Projekte aus dem Projektordner"
+
+msgid "PMGR_MSG_INF_L"
+msgstr " -l, --list		Listet alle verfuegbaren Projekte auf"
+
+msgid "PMGR_MSG_INF_R"
+msgstr " r, --remove		Loescht ein Projekt"
+
+msgid "PMGR_MSG_INF_V"
+msgstr " -v, --version		Zeigt die Versions und Copyright Informationen"
+
+msgid "PMGR_MSG_INF_U"
+msgstr " -u, --update		Suche nach Updates"
+
+msgid "PMGR_MSG_INF_S"
+msgstr " -s, --setup		Installations Funktion um Konfiguration zu bearbeiten oder zu erstellen"
+
+msgid "PMGR_MSG_INF_H"
+msgstr " -h, --help			Zeigt diesen Hilfedialog "
+
+msgid "PMGR_MSG_INF_ARG"
+msgstr "[ARG2]"
+
+msgid "PMGR_MSG_INF_N"
+msgstr " -n, --noout	Leiser Modus"
+
+msgid "PMGR_MSG_INF_P"
+msgstr " -p, --public	Erstellt eine oeffentliches Git Projekt anstatt eines Privaten"
+
+msgid "PMGR_MSG_INF_E"
+msgstr " -e, --edit		Bearbeitet die Konfiguration nur in verbindung mit -s"
+
+msgid "PMGR_MSG_UPD_NEW"
+msgstr "Es ist ein Update verfuegbar, moechten Sie jetzt Updaten? (Ja/Nein)"
+
+msgid "PMGR_MSG_UPD_SU"
+msgstr "Diese Aktion erfordert Sudo"
+
+msgid "PMGR_MSG_UPD_DONE"
+msgstr "Update auf Version $version wurde ausgefuehrt"
+
+msgid "PMGR_MSG_UPDATE_NO"
+msgstr "Wird nicht geupdatet"
+
+msgid "PMGR_MSG_INP_INV"
+msgstr "ungueltige Eingabe \n ueberspringe...."
+
+msgid "PMGR_PATH_DOC"
+msgstr "Dokumente"

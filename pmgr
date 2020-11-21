@@ -9,13 +9,86 @@
 
 ##New Command for Whole thing
 function pmgr (){
+	#################################
+	##GETTEXT alias for ease of use##
+	#################################
+	alias GETTEXT='gettext "PMGR"'
+	
+	##############################################
+	####Defining base strings for localization####
+	##############################################
+
+	local PMGR_MSG_DIR_NO=$(GETTEXT"Pmgr Directorys not found")
+	local PMGR_MSG_DIR_C_Q=$(GETTEXT "Do you wan't to create them? (y/n)")
+	local PMGR_MSG_DIR_C=$(GETTEXT "Creating Pmgr Directorys")
+	local PMGR_MSG_CFG_NO=$(GETTEXT "Config file not found")
+	local PMGR_MSG_CFG_C=$(GETTEXT "Creating new Config:")
+	local PMGR_MSG_CFG_C_D_Q=$(GETTEXT "Create Config with default Values? (y/n)")
+	local PMGR_MSG_CFG_C_E=$(GETTEXT "Creating default Config, please edit and set youre Values with pmgr -s -e")
+	local PMGR_MSG_CFG_DIR_Q=$(GETTEXT "Please set youre Project Directory:")
+	local PMGR_MSG_CFG_DIR=$(GETTEXT "Setting Project Dir to: $REPLY")
+	local PMGR_MSG_CFG_USR_Q=$(GETTEXT "Please set youre Github Username:")
+	local PMGR_MSG_CFG_USR=$(GETTEXT "Github Username set to $REPLY")
+	local PMGR_MSG_CFG_TKN_Q=$(GETTEXT "Please set youre Github Token:")
+	local PMGR_MSG_CFG_TKN=$(GETTEXT "Github Token set to $REPLY")
+	local PMGR_MSG_CFG_MEDIT_Q=$(GETTEXT "Which Editor do you wan't to use as main Editor?")
+	local PMGR_MSG_CFG_MEDIT=$(GETTEXT "Maineditor set to $REPLY")
+	local PMGR_MSG_CFG_SEDIT_Q=$(GETTEXT "Which Editor do you wan't to use as Secondary Editor?")
+	local PMGR_MSG_CFG_EDIT_CODE=$(GETTEXT "[1] VSCode")
+	local PMGR_MSG_CFG_EDIT_SUBL=$(GETTEXT "[2] Sublime")
+	local PMGR_MSG_CFG_EDIT_ATOM=$(GETTEXT "[3] Atom")
+	local PMGR_MSG_CFG_EDIT_VIM=$(GETTEXT "[4] VIM")
+	local PMGR_MSG_CFG_EDIT_SET_Q=$(GETTEXT "Enter Number of Editor:")
+	local PMGR_MSG_CFG_SEDIT=$(GETTEXT "Secondary Editor set to $REPLY")
+	local PMGR_MSG_CFG_WRITE=$(GETTEXT "Writing Config...")
+	local PMGR_MSG_CFG_DONE=$(GETTEXT "Config Setup Done...")
+	local PMGR_MSG_DIR_DONE=$(GETTEXT "Directory creation done")
+	local PMGR_MSG_DEP_JQ=$(GETTEXT "Pmgr needed dependency jq not installed")
+	local PMGR_MSG_DEP_JQ_Q=$(GETTEXT "Do you want to install it? (y/n)")
+	local PMGR_MSG_DEP_JQ_INST=$(GETTEXT "Installing jq")
+	local PMGR_MSG_DEP_JQ_DONE=$(GETTEXT "jq succesfully installed, version: $jqversion")
+	local PMGR_MSG_SET_SKIP=$(GETTEXT "Setup skipped")
+	local PMGR_MSG_ARG_INV=$(GETTEXT "Given Arguments $@ invalid")
+	local PMGR_MSG_PRJ_C_Q=$(GETTEXT "Do you want to create it? (y/n)")
+	local PMGR_MSG_PRJ_C=$(GETTEXT "Creating new Project $1")
+	local PMGR_MSG_PRJ_REM=$(GETTEXT "Project does exist remotely")
+	local PMGR_MSG_PRJ_REM_Q=$(GETTEXT "Do you want to clone it? (y/n)")
+	local PMGR_MSG_PRJ_REM_GET=$(GETTEXT "Cloning Repository from Git")
+	local PMGR_MSG_PRJ_OPN=$(GETTEXT "Opening $1")
+	local PMGR_MSG_PRJ_NAME_NO=$(GETTEXT "No Project name given...")
+	local PMGR_MSG_DEL=$(GETTEXT "Do you really want to remove $1? (y/n)")
+	local PMGR_MSG_PRJ_DEL=$(GETTEXT "Deleting Project $1")
+	local PMGR_MSG_PRJ_DEL_L=$(GETTEXT "Removing Local Repository...")
+	local PMGR_MSG_PRJ_DEL_REM=$(GETTEXT "Removing Remote Repository...")
+	local PMGR_MSG_PRJ_NO=$(GETTEXT "Project $1 does not exist")
+	local PMGR_MSG_VER=$(GETTEXT "ProjectManager by FAO_Spikey version: $version")
+	local PMGR_MSG_INF_CALL=$(GETTEXT "Call: pmgr [ARG1]... [Project]... [ARG2]")
+	local PMGR_MSG_INF=$(GETTEXT "Project Manager to create, list and delete Projects you are working on - git inclusive \n  ARG1:")
+	local PMGR_MSG_INF_C=$(GETTEXT "	-c, --create 		Creates a new Project in Projects folder")
+	local PMGR_MSG_INF_O=$(GETTEXT "	-o, --open 		Opens Project from Project folder")
+	local PMGR_MSG_INF_L=$(GETTEXT "	-l, --list 		Lists all available Projects")
+	local PMGR_MSG_INF_R=$(GETTEXT "	-r, --remove 		Deletes a Project")
+	local PMGR_MSG_INF_V=$(GETTEXT "	-v, --version		Shows Version and Copyright information")
+	local PMGR_MSG_INF_U=$(GETTEXT "	-u, --update 		Searches for Updates")
+	local PMGR_MSG_INF_S=$(GETTEXT "	-s, --setup 		Setup function to create or edit Config")
+	local PMGR_MSG_INF_H=$(GETTEXT "  	--help 			Shows this Help dialog")
+	local PMGR_MSG_INF_ARG=$(GETTEXT "ARG2:")
+	local PMGR_MSG_INF_N=$(GETTEXT "	-n, --noout		Quiet Mode")
+	local PMGR_MSG_INF_P=$(GETTEXT "	-p, --public 	Creates public Git repository instead of private")
+	local PMGR_MSG_INF_E=$(GETTEXT "	-e, --edit 		Edits the Config, usage only in combination with -s")
+	local PMGR_MSG_UPD_NEW=$(GETTEXT "There is an Update available do you wan't to update? (y/n)")
+	local PMGR_MSG_UPD_SU=$(GETTEXT "This action requires Sudo")
+	local PMGR_MSG_UPD_DONE=$(GETTEXT "Updated to version $version")
+	local PMGR_MSG_UPDATE_NO=$(GETTEXT "Not Updating")
+	local PMGR_MSG_INP_INV=$(GETTEXT "Invalid input \n Skipping...")
+	local PMGR_PATH_DOC=$(GETTEXT "Documents")
 	
 	#########################################
 	##Defining all needed Variables Locally##
 	#########################################
 
-	local cfgf="/home/$USER/Dokumente/Projects/.Config/config.json"
-	local cfgd="/home/$USER/Dokumente/Projects/.Config"
+	local cfgf="/home/$USER/$PMGR_PATH_DOC/Projects/.Config/config.json"
+	local cfgd="/home/$USER/$PMGR_PATH_DOC/Projects/.Config"
 	local GH_User
 	local GH_Token
 	local projectdir
@@ -25,7 +98,7 @@ function pmgr (){
 	local priv=true
 	local quiet=false
 	local edit=false
-
+	
 	###########################
 	##Variable Reset Function##
 	###########################
@@ -94,7 +167,7 @@ function pmgr (){
 							echo '	"GH_Token": "",'
     						echo '	"GH_User": "",'
     						echo '	"version": "2.5.15",'
-    						echo '	"projectdir":' '"/home/'"$USER"'/Dokumente/Projects",'
+    						echo '	"projectdir":' '"/home/'"$USER"'/$PMGR_PATH_DOC/Projects",'
     						echo '	"maineditor": "code",'
     						echo '	"secondaryeditor": "subl"'
 							echo '}'

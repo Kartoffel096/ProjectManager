@@ -1,0 +1,215 @@
+# English translations for PMGR package.
+# Copyright (C) 2020 Kartoffel096 | LivelyBytes
+# This file is distributed under the same license as the PMGR package.
+# Max <gollum096@gmail.com>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 2.5.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-20 09:42+0100\n"
+"PO-Revision-Date: 2020-11-20 09:43+0100\n"
+"Last-Translator: Max <gollum096@gmail.com>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "PMGR_MSG_DIR_NO"
+msgstr "Pmgr Directorys not found"
+
+msgid "PMGR_MSG_DIR_C_Q"
+msgstr "Do you wan't to create them ? (y/n)"
+
+msgid "PMGR_MSG_DIR_C"
+msgstr "Creating Pmgr Directorys"
+
+msgid "PMGR_MSG_CFG_NO"
+msgstr "Config file not found"
+
+msgid "PMGR_MSG_CFG_C"
+msgstr "Creating new Config:"
+msgid "PMGR_MSG_CFG_C_U"
+msgstr "Creating User Guided Config:"
+
+msgid "PMGR_MSG_CFG_C_D_Q"
+msgstr "Create Config with default Values ? (y/n)"
+
+msgid "PMGR_MSG_CFG_C_E"
+msgstr "Creating default Config, please edit and set your Values with pmgr -s -e"
+
+msgid "PMGR_MSG_CFG_DIR_Q"
+msgstr "Please set your Project Directory:"
+
+msgid "PMGR_MSG_CFG_DIR"
+msgstr "Setting Project Dir to: $REPLY"
+
+msgid "PMGR_MSG_CFG_USR_Q"
+msgstr "Please set your Github Username:"
+
+msgid "PMGR_MSG_CFG_USR"
+msgstr "Setting Github Username to: $REPLY"
+
+msgid "PMGR_MSG_CFG_TKN_Q"
+msgstr "Please set your Github Token:"
+
+msgid "PMGR_MSG_CFG_TKN"
+msgstr "Setting Github Token to $REPLY"
+
+msgid "PMGR_MSG_CFG_MEDIT_Q"
+msgstr "Which Editor do you wan't to use as main Editor"
+
+msgid "PMGR_MSG_CFG_MEDIT"
+msgstr "Setting Maineditor to: $REPLY"
+
+msgid "PMGR_MSG_CFG_SEDIT_Q"
+msgstr "Which Editor do you wan't to use as Secondary Editor"
+
+msgid "PMGR_MSG_CFG_EDIT_CODE"
+msgstr "[1] VSCode"
+
+msgid "PMGR_MSG_CFG_EDIT_SUBL"
+msgstr "[2] Sublime"
+
+msgid "PMGR_MSG_CFG_EDIT_ATOM"
+msgstr "[3] Atom"
+
+msgid "PMGR_MSG_CFG_EDIT_VIM"
+msgstr "[4] Vim"
+
+msgid "PMGR_MSG_CFG_EDIT_SET_Q"
+msgstr "Enter Number of Editor:"
+
+msgid "PMGR_MSG_CFG_SEDIT"
+msgstr "Secondary Editor set to $REPLY"
+
+msgid "PMGR_MSG_CFG_WRITE"
+msgstr "Writing Config..."
+
+msgid "PMGR_MSG_CFG_DONE"
+msgstr "Config Setup Done..."
+
+msgid "PMGR_MSG_DIR_DONE"
+msgstr "Directory creation done"
+
+msgid "PMGR_MSG_DEP_JQ"
+msgstr "Pmgr needed Dependency jq not installed"
+
+msgid "PMGR_MSG_DEP_JQ_Q"
+msgstr "Do you want to install it ? (y/n)"
+
+msgid "PMGR_MSG_DEP_JQ_INST"
+msgstr "Installing jq"
+
+msgid "PMGR_MSG_DEP_JQ_DONE"
+msgstr "jq successfully installed - Version: $jqversion"
+
+msgid "PMGR_MSG_SET_SKIP"
+msgstr "Setup skipped"
+
+msgid "PMGR_MSG_ARG_INV"
+msgstr "Given Arguments $@ invalid"
+
+msgid "PMGR_MSG_PRJ_C_Q"
+msgstr "Do you want to create it ? (y/n)"
+
+msgid "PMGR_MSG_PRJ_C"
+msgstr "Creating new Project $1"
+
+msgid "PMGR_MSG_PRJ_REM"
+msgstr "Project does Exist Remotely"
+
+msgid "PMGR_MSG_PRJ_REM_Q"
+msgstr "Do you want to clone it ? (y/n)"
+
+msgid "PMGR_MSG_PRJ_REM_GET"
+msgstr "Cloning Repository from Git"
+
+msgid "PMGR_MSG_PRJ_OPN"
+msgstr "Opening $1"
+
+msgid "PMGR_MSG_PRJ_CUR"
+msgstr "Current Projects:"
+
+msgid "PMGR_MSG_PRJ_NAME_NO"
+msgstr "No Project Name given..."
+
+msgid "PMGR_MSG_DEL_Q"
+msgstr "Do you really want to remove $1 (y/n)"
+
+msgid "PMGR_MSG_PRJ_DEL"
+msgstr "Deleting Project $1"
+
+msgid "PMGR_MSG_PRJ_DEL_L"
+msgstr "Removing Local Repository..."
+
+msgid "PMGR_MSG_PRJ_DEL_REM"
+msgstr "Removing Remote Repository..."
+
+msgid "PMGR_MSG_PRJ_NO"
+msgstr "Project $1 does not exist"
+
+msgid "PMGR_MSG_VER"
+msgstr "ProjectManager by FAO_Spikey version: $version"
+
+msgid "PMGR_MSG_INF_CALL"
+msgstr "Call pmgr [ARG1]... [project]... [ARG2]"
+
+msgid "PMGR_MSG_INF"
+msgstr "Project Manager to create, list and delete Projects you are working on - git inclusive"
+
+msgid "PMGR_MSG_INF_C"
+msgstr "	-c, --create 		Creates a new Project in Projects Folder[ARG2]"
+
+msgid "PMGR_MSG_INF_O"
+msgstr "	-o, --open 		Opens Project from Project Folder"
+
+msgid "PMGR_MSG_INF_L"
+msgstr "	-l, --list 		Lists all available Projects"
+
+msgid "PMGR_MSG_INF_R"
+msgstr "	-r, --remove 		Deletes a Project"
+
+msgid "PMGR_MSG_INF_V"
+msgstr "	-v, --version		Shows Version and Copyright Information"
+
+msgid "PMGR_MSG_INF_U"
+msgstr "	-u, --update 		Searches for Updates"
+
+msgid "PMGR_MSG_INF_S"
+msgstr "	-s, --setup 		Setup Function to create or edit Config"
+
+msgid "PMGR_MSG_INF_H"
+msgstr " -h, --help 			Shows this Help dialog"
+
+msgid "PMGR_MSG_INF_ARG"
+msgstr "[ARG2]"
+
+msgid "PMGR_MSG_INF_N"
+msgstr "	-n, --noout		Quiet Mode"
+
+msgid "PMGR_MSG_INF_P"
+msgstr "	-p, --public 	Creates public Git Repository instead of Private"
+
+msgid "PMGR_MSG_INF_E"
+msgstr "	-e, --edit 		Edits the Config only in combination with -s"
+
+msgid "PMGR_MSG_UPD_NEW"
+msgstr "There is an Update available do you wan't to Update? (y/n)"
+
+msgid "PMGR_MSG_UPD_SU"
+msgstr "This action requires Sudo"
+
+msgid "PMGR_MSG_UPD_DONE"
+msgstr "Updated to Version $version"
+
+msgid "PMGR_MSG_UPDATE_NO"
+msgstr "Not Updating"
+
+msgid "PMGR_MSG_INP_INV"
+msgstr "Invalid Input \n Skipping..."
+
+msgid "PMGR_PATH_DOC"
+msgstr "Documents"
