@@ -10,81 +10,12 @@
 ##New Command for Whole thing
 function pmgr (){
 
-	#This is how it Wörks -> will print out PMGR_MSG_1 msgid from system language if locale exist
-	#echo "echo $(gettext -e "PMGR_MSG_1")"
-
 	##############################################
 	####Defining base strings for localization####
 	##############################################
 	export TEXTDOMAINDIR="/home/$USER/Dokumente/Projects/.Config/locale"
 	export TEXTDOMAIN="pmgr"
 
-	#TODO Place at Correct Echo positions!
-	
-	echo $(gettext -e "PMGR_MSG_CFG_NO") #Config file not found
-	echo $(gettext -e "PMGR_MSG_CFG_C") #Creating new Config:
-	echo $(gettext -e "PMGR_MSG_CFG_C_U") #Creating User Guided Config:
-	echo $(gettext -e "PMGR_MSG_CFG_C_D_Q") #Create Config with default Values? (y/n)
-	echo $(gettext -e "PMGR_MSG_CFG_C_E") #Creating default Config, please edit and set youre Values with pmgr -s -e
-	echo $(gettext -e "PMGR_MSG_CFG_DIR_Q") #Please set youre Project Directory:
-	echo $(gettext -e "PMGR_MSG_CFG_DIR") #Setting Project Dir to: $REPLY
-	echo $(gettext -e "PMGR_MSG_CFG_USR_Q") #Please set youre Github Username:
-	echo $(gettext -e "PMGR_MSG_CFG_USR") #Github Username set to $REPLY
-	echo $(gettext -e "PMGR_MSG_CFG_TKN_Q") #Please set youre Github Token:
-	echo $(gettext -e "PMGR_MSG_CFG_TKN") #Github Token set to $REPLY
-	echo $(gettext -e "PMGR_MSG_CFG_MEDIT_Q") #Which Editor do you wan't to use as main Editor?
-	echo $(gettext -e "PMGR_MSG_CFG_MEDIT") #Maineditor set to $REPLY
-	echo $(gettext -e "PMGR_MSG_CFG_SEDIT_Q") #Which Editor do you wan't to use as Secondary Editor?
-	echo $(gettext -e "PMGR_MSG_CFG_EDIT_CODE") #[1] VSCode
-	echo $(gettext -e "PMGR_MSG_CFG_EDIT_SUBL") #[2] Sublime
-	echo $(gettext -e "PMGR_MSG_CFG_EDIT_ATOM") #[3] Atom
-	echo $(gettext -e "PMGR_MSG_CFG_EDIT_VIM") #[4] VIM
-	echo $(gettext -e "PMGR_MSG_CFG_EDIT_SET_Q") #Enter Number of Editor:
-	echo $(gettext -e "PMGR_MSG_CFG_SEDIT") #Secondary Editor set to $REPLY
-	echo $(gettext -e "PMGR_MSG_CFG_WRITE") #Writing Config...
-	echo $(gettext -e "PMGR_MSG_CFG_DONE") #Config Setup Done...
-	echo $(gettext -e "PMGR_MSG_DIR_DONE") #Directory creation done
-	echo $(gettext -e "PMGR_MSG_DEP_JQ") #Pmgr needed dependency jq not installed
-	echo $(gettext -e "PMGR_MSG_DEP_JQ_Q") #Do you want to install it? (y/n)
-	echo $(gettext -e "PMGR_MSG_DEP_JQ_INST") #Installing jq
-	echo $(gettext -e "PMGR_MSG_DEP_JQ_DONE") #jq succesfully installed, version: $jqversion
-	echo $(gettext -e "PMGR_MSG_ARG_INV") #Given Arguments $@ invalid
-	echo $(gettext -e "PMGR_MSG_PRJ_C_Q") #Do you want to create it? (y/n)
-	echo $(gettext -e "PMGR_MSG_PRJ_C") #Creating new Project $1
-	echo $(gettext -e "PMGR_MSG_PRJ_REM") #Project does exist remotely
-	echo $(gettext -e "PMGR_MSG_PRJ_REM_Q") #Do you want to clone it? (y/n)
-	echo $(gettext -e "PMGR_MSG_PRJ_REM_GET") #Cloning Repository from Git
-	echo $(gettext -e "PMGR_MSG_PRJ_OPN") #Opening $1
-	echo $(gettext -e "PMGR_MSG_PRJ_CUR") #Current Projects:
-	echo $(gettext -e "PMGR_MSG_PRJ_NAME_NO") #No Project name given...
-	echo $(gettext -e "PMGR_MSG_DEL_Q") #Do you really want to remove $1? (y/n)
-	echo $(gettext -e "PMGR_MSG_PRJ_DEL") #Deleting Project $1
-	echo $(gettext -e "PMGR_MSG_PRJ_DEL_L") #Removing  Repository...
-	echo $(gettext -e "PMGR_MSG_PRJ_DEL_REM") #Removing Remote Repository...
-	echo $(gettext -e "PMGR_MSG_PRJ_NO") #Project $1 does not exist
-	echo $(gettext -e "PMGR_MSG_VER") #ProjectManager by FAO_Spikey version: $version
-	echo $(gettext -e "PMGR_MSG_INF_CALL") #Call: pmgr [ARG1]... [Project]... [ARG2]
-	echo $(gettext -e "PMGR_MSG_INF") #Project Manager to create, list and delete Projects you are working on - git inclusive \n  ARG1:
-	echo $(gettext -e "PMGR_MSG_INF_C") #	-c, --create 		Creates a new Project in Projects folder
-	echo $(gettext -e "PMGR_MSG_INF_O") #	-o, --open 		Opens Project from Project folder
-	echo $(gettext -e "PMGR_MSG_INF_L") #	-l, --list 		Lists all available Projects
-	echo $(gettext -e "PMGR_MSG_INF_R") #	-r, --remove 		Deletes a Project
-	echo $(gettext -e "PMGR_MSG_INF_V") #	-v, --version		Shows Version and Copyright information
-	echo $(gettext -e "PMGR_MSG_INF_U") #	-u, --update 		Searches for Updates
-	echo $(gettext -e "PMGR_MSG_INF_S") #	-s, --setup 		Setup function to create or edit Config
-	echo $(gettext -e "PMGR_MSG_INF_H") #  	--help 			Shows this Help dialog
-	echo $(gettext -e "PMGR_MSG_INF_ARG") #ARG2:
-	echo $(gettext -e "PMGR_MSG_INF_N") #	-n, --noout		Quiet Mode
-	echo $(gettext -e "PMGR_MSG_INF_P") #	-p, --public 	Creates public Git repository instead of private
-	echo $(gettext -e "PMGR_MSG_INF_E") #	-e, --edit 		Edits the Config, usage only in combination with -s
-	echo $(gettext -e "PMGR_MSG_UPD_NEW") #There is an Update available do you wan't to update? (y/n)
-	echo $(gettext -e "PMGR_MSG_UPD_SU") #This action requires Sudo
-	echo $(gettext -e "PMGR_MSG_UPD_DONE") #Updated to version $version
-	echo $(gettext -e "PMGR_MSG_UPDATE_NO") #Not Updating
-	echo $(gettext -e "PMGR_PATH_DOC") #Documents
-	echo $(gettext -e "PMGR_MSG_SET_SKIP") #Setup Skipped
-	echo $(gettext -e "PMGR_MSG_INP_SKIP") #Skipping...
-	
 	#########################################
 	##Defining all needed Variables Locally##
 	#########################################

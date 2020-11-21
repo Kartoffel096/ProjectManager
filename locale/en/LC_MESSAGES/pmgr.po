@@ -213,3 +213,6 @@ msgstr "Invalid Input \n Skipping..."
 
 msgid "PMGR_PATH_DOC"
 msgstr "Documents"
+
+msgid "PMGR_MSG_INP_SKIP"
+msgstr "Skipping..."

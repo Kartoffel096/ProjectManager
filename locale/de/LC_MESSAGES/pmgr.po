@@ -214,3 +214,6 @@ msgstr "ungueltige Eingabe \n ueberspringe...."
 
 msgid "PMGR_PATH_DOC"
 msgstr "Dokumente"
+
+msgid "PMGR_MSG_INP_SKIP"
+msgstr "Ueberspringe..."
