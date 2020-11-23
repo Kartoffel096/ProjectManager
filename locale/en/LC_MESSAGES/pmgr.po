@@ -31,6 +31,7 @@ msgstr "Config file not found"
 
 msgid "PMGR_MSG_CFG_C"
 msgstr "Creating new Config:"
+
 msgid "PMGR_MSG_CFG_C_U"
 msgstr "Creating User Guided Config:"
 
@@ -44,25 +45,25 @@ msgid "PMGR_MSG_CFG_DIR_Q"
 msgstr "Please set your Project Directory:"
 
 msgid "PMGR_MSG_CFG_DIR"
-msgstr "Setting Project Dir to: $REPLY"
+msgstr "Setting Project Dir to: "
 
 msgid "PMGR_MSG_CFG_USR_Q"
 msgstr "Please set your Github Username:"
 
 msgid "PMGR_MSG_CFG_USR"
-msgstr "Setting Github Username to: $REPLY"
+msgstr "Setting Github Username to: "
 
 msgid "PMGR_MSG_CFG_TKN_Q"
 msgstr "Please set your Github Token:"
 
 msgid "PMGR_MSG_CFG_TKN"
-msgstr "Setting Github Token to $REPLY"
+msgstr "Setting Github Token to "
 
 msgid "PMGR_MSG_CFG_MEDIT_Q"
 msgstr "Which Editor do you wan't to use as main Editor"
 
 msgid "PMGR_MSG_CFG_MEDIT"
-msgstr "Setting Maineditor to: $REPLY"
+msgstr "Setting Maineditor to: "
 
 msgid "PMGR_MSG_CFG_SEDIT_Q"
 msgstr "Which Editor do you wan't to use as Secondary Editor"
@@ -83,7 +84,7 @@ msgid "PMGR_MSG_CFG_EDIT_SET_Q"
 msgstr "Enter Number of Editor:"
 
 msgid "PMGR_MSG_CFG_SEDIT"
-msgstr "Secondary Editor set to $REPLY"
+msgstr "Secondary Editor set to "
 
 msgid "PMGR_MSG_CFG_WRITE"
 msgstr "Writing Config..."
@@ -104,7 +105,7 @@ msgid "PMGR_MSG_DEP_JQ_INST"
 msgstr "Installing jq"
 
 msgid "PMGR_MSG_DEP_JQ_DONE"
-msgstr "jq successfully installed - Version: $jqversion"
+msgstr "jq successfully installed - Version: "
 
 msgid "PMGR_MSG_SET_SKIP"
 msgstr "Setup skipped"
@@ -137,10 +138,10 @@ msgid "PMGR_MSG_PRJ_NAME_NO"
 msgstr "No Project Name given..."
 
 msgid "PMGR_MSG_DEL_Q"
-msgstr "Do you really want to remove $1 (y/n)"
+msgstr "Do you really want to remove (y/n)"
 
 msgid "PMGR_MSG_PRJ_DEL"
-msgstr "Deleting Project $1"
+msgstr "Deleting Project "
 
 msgid "PMGR_MSG_PRJ_DEL_L"
 msgstr "Removing Local Repository..."
@@ -152,7 +153,7 @@ msgid "PMGR_MSG_PRJ_NO"
 msgstr "Project $1 does not exist"
 
 msgid "PMGR_MSG_VER"
-msgstr "ProjectManager by FAO_Spikey version: $version"
+msgstr "ProjectManager by FAO_Spikey version:"
 
 msgid "PMGR_MSG_INF_CALL"
 msgstr "Call pmgr [ARG1]... [project]... [ARG2]"
@@ -203,7 +204,7 @@ msgid "PMGR_MSG_UPD_SU"
 msgstr "This action requires Sudo"
 
 msgid "PMGR_MSG_UPD_DONE"
-msgstr "Updated to Version $version"
+msgstr "Updated to Version "
 
 msgid "PMGR_MSG_UPDATE_NO"
 msgstr "Not Updating"

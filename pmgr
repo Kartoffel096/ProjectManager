@@ -89,7 +89,7 @@ function pmgr (){
 				else
 					echo $(gettext -e "PMGR_MSG_CFG_NO") #Config file not found
 					echo $(gettext -e "PMGR_MSG_CFG_C") #Creating new Config:
-					read -p "Create Config with default Values ? (y/n)" -n 1 -r
+					read -p "$(gettext -e "PMGR_MSG_CFG_C_D_Q")" -n 1 -r
 					if [[ $REPLY =~ ^[Yy]$ ]]; then
 						echo
 						echo $(gettext -e "PMGR_MSG_CFG_C_E") #Creating default Config, please edit and set youre Values with pmgr -s -e
@@ -111,21 +111,21 @@ function pmgr (){
 						echo
 						echo $(gettext -e "PMGR_MSG_CFG_C_U") #Creating User Guided Config:
 						echo
-						read -p "Please set you're Project Directory:" -r
-						echo $(gettext -e "PMGR_MSG_CFG_DIR") #Setting Project Dir to: $REPLY
+						read -p "$(gettext -e "PMGR_MSG_CFG_DIR_Q")" -r
+						echo "$(gettext -e "PMGR_MSG_CFG_DIR") $REPLY" #Setting Project Dir to: $REPLY
 						local pdir="$REPLY"
-						read -p "Please set you're Github Username:" -r
-						echo $(gettext -e "PMGR_MSG_CFG_USR") #Github Username set to $REPLY
+						read -p "$(gettext -e "PMGR_MSG_CFG_USR_Q")" -r
+						echo "$(gettext -e "PMGR_MSG_CFG_USR") $REPLY" #Github Username set to $REPLY
 						local uname="$REPLY"
-						read -p "Please set you're Github Token:" -r
-						echo $(gettext -e "PMGR_MSG_CFG_TKN") #Github Token set to $REPLY
+						read -p "$(gettext -e "PMGR_MSG_CFG_TKN_Q)" -r
+						echo "$(gettext -e "PMGR_MSG_CFG_TKN") $REPLY" #Github Token set to $REPLY
 						local token="$REPLY"
 						echo $(gettext -e "PMGR_MSG_CFG_MEDIT_Q") #Which Editor do you wan't to use as main Editor?
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_CODE") #[1] VSCode
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_SUBL") #[2] Sublime
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_ATOM") #[3] Atom
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_VIM") #[4] VIM
-						read -p "Enter Number of Editor:"
+						read -p "$(gettext -e "PMGR_MSG_CFG_EDIT_SET_Q")"
 						case $REPLY in
 							"1") local medit="code";;
 							"2") local medit="subl";;
@@ -137,13 +137,13 @@ function pmgr (){
 								sleep 2
 								clear
 						esac
-						echo $(gettext -e "PMGR_MSG_CFG_MEDIT") #Maineditor set to $REPLY
+						echo "$(gettext -e "PMGR_MSG_CFG_MEDIT") $REPLY" #Maineditor set to $REPLY
 						echo $(gettext -e "PMGR_MSG_CFG_SEDIT_Q") #Which Editor do you wan't to use as Secondary Editor?
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_CODE") #[1] VSCode
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_SUBL") #[2] Sublime
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_ATOM") #[3] Atom
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_VIM") #[4] VIM
-						read -p "Enter Number of Editor:"
+						read -p "$(gettext -e "PMGR_MSG_CFG_EDIT_SET_Q")"
 						case $REPLY in
 							"1") local sedit="code";;
 							"2") local sedit="subl";;
@@ -155,7 +155,7 @@ function pmgr (){
 								sleep 2
 								clear
 						esac
-						echo $(gettext -e "PMGR_MSG_CFG_SEDIT") #Secondary Editor set to $REPLY
+						echo "$(gettext -e "PMGR_MSG_CFG_SEDIT") $REPLY" #Secondary Editor set to $REPLY
 						echo $(gettext -e "PMGR_MSG_CFG_WRITE") #Writing Config...
 						touch "$cfgf"
 						{
@@ -205,7 +205,7 @@ function pmgr (){
 				psetup "1";;
 			"5")
 				echo $(gettext -e "PMGR_MSG_DEP_JQ") #Pmgr needed dependency jq not installed
-				read -p "Do you want to install it ? (y/n)" -n 1 -r
+				read -p "$(gettext -e "PMGR_MSG_DEP_JQ_Q")" -n 1 -r
 				if [[ $REPLY =~ ^[Yy]$ ]]; then
 					echo
 					echo $(gettext -e "PMGR_MSG_DEP_JQ_INST") #Installing jq
@@ -320,9 +320,9 @@ function pmgr (){
 					echo
 					echo $(gettext -e "PMGR_MSG_PRJ_NO") #Project $1 does not exist
 					echo 
-					read -p "Do you want to create it ? (y/n)" -n 1 -r
+					read -p "$(gettext -e "PMGR_MSG_PRJ_C_Q")" -n 1 -r
 					if [[ $REPLY =~ ^[Yy]$ ]]; then
-						echo $(gettext -e "PMGR_MSG_PRJ_C") #Creating new Project $1
+						echo "$(gettext -e "PMGR_MSG_PRJ_C") $1" #Creating new Project $1
 						pcreate $1
 					elif [[ $REPLY =~ ^[Nn]$ ]]; then
 						echo
@@ -337,7 +337,7 @@ function pmgr (){
 					echo
 					echo $(gettext -e "PMGR_MSG_PRJ_REM") #Project does exist remotely
 					echo
-					read -p "Do you want to clone it ? (y/n)" -n 1 -r
+					read -p "$(gettext -e "PMGR_MSG_PRJ_REM_Q")" -n 1 -r
 					if [[ $REPLY =~ ^[Yy]$ ]]; then
 						echo
 						echo $(gettext -e "PMGR_MSG_PRJ_REM_GET") #Cloning Repository from Git
@@ -358,7 +358,7 @@ function pmgr (){
 					fi
 				fi
 			else
-				echo $(gettext -e "PMGR_MSG_PRJ_OPN") #Opening $1
+				echo "$(gettext -e "PMGR_MSG_PRJ_OPN") $1" #Opening $1
 				cd "$projectdir/$1"
 				smerge .
 				$maineditor .
@@ -394,7 +394,7 @@ function pmgr (){
 			read -p "Do you really want to remove $1 (y/n)" -n 1 -r
 				if [[ $REPLY =~ ^[Yy]$ ]]; then
 					echo
-					echo $(gettext -e "PMGR_MSG_PRJ_DEL") #Deleting Project $1
+					echo "$(gettext -e "PMGR_MSG_PRJ_DEL") $1" #Deleting Project $1
 					echo $(gettext -e "PMGR_MSG_PRJ_DEL_L") #Removing  Repository...
 					cd $projectdir
 					rm -r -d -f $1
@@ -423,7 +423,7 @@ function pmgr (){
 	function pinf () {
 		case "$1" in
 			"version")
-				echo $(gettext -e "PMGR_MSG_VER");; #ProjectManager by FAO_Spikey version: $version
+				echo "$(gettext -e "PMGR_MSG_VER") $version";; #ProjectManager by FAO_Spikey version: $version
 			
 			*)	echo
 				echo $(gettext -e "PMGR_MSG_INF_CALL") #Call: pmgr [ARG1]... [Project]... [ARG2]
@@ -494,7 +494,7 @@ function pmgr (){
 	        0) #Equal Version
 				echo;;
 	        1) #remote newer
-				read -p "There is an Update available do you wan't to Update? (y/n)" -n 1 -r
+				read -p "$(gettext -e "PMGR_MSG_UPD_NEW")" -n 1 -r
 				if [[ $REPLY =~ ^[Yy]$ ]]; then
 					echo
 					echo $(gettext -e "PMGR_MSG_UPD_SU") #This action requires Sudo
@@ -516,7 +516,7 @@ function pmgr (){
 					cd /tmp
 					rm -r -d -f "ProjectManager-main"
 					version="$( jq -r '.version' "$cfgf" )"
-					echo $(gettext -e "PMGR_MSG_UPD_DONE") #Updated to version $version
+					echo $(gettext -e "PMGR_MSG_UPD_DONE") $version #Updated to version $version
 					return 0
 				elif [[ $REPLY =~ ^[Nn]$ ]]; then
 					echo

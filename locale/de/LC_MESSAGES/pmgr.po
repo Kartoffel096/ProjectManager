@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+
 msgid "PMGR_MSG_DIR_NO"
 msgstr "Pmgr Verzeichnisse nicht gefunden"
 
@@ -45,25 +46,25 @@ msgid "PMGR_MSG_CFG_DIR_Q"
 msgstr "Bitte geben Sie Ihr Projektverzeichniss an:"
 
 msgid "PMGR_MSG_CFG_DIR"
-msgstr "Setze Projektverzeichniss zu: $REPLY"
+msgstr "Setze Projektverzeichniss zu:"
 
 msgid "PMGR_MSG_CFG_USR_Q"
 msgstr "Bitte geben sie Ihren Github Benutzernamen an:"
 
 msgid "PMGR_MSG_CFG_USR"
-msgstr "Setze Github Benutzername zu: $REPLY"
+msgstr "Setze Github Benutzername zu:"
 
 msgid "PMGR_MSG_CFG_TKN_Q"
 msgstr "Bitte geben sie Ihren Github Token an:"
 
 msgid "PMGR_MSG_CFG_TKN"
-msgstr "Setze Github Token zu: $REPLY"
+msgstr "Setze Github Token zu:"
 
 msgid "PMGR_MSG_CFG_MEDIT_Q"
 msgstr "Welchen Editor moechten Sie als Haupteditor nutzen?"
 
 msgid "PMGR_MSG_CFG_MEDIT"
-msgstr "Setze Haupteditor zu: $REPLY"
+msgstr "Setze Haupteditor zu:"
 
 msgid "PMGR_MSG_CFG_SEDIT_Q"
 msgstr "Welchen Editor moechten Sie als Zweiteditor nutzen?"
@@ -84,7 +85,7 @@ msgid "PMGR_MSG_CFG_EDIT_SET_Q"
 msgstr "Geben Sie die Nummer des Editors an:"
 
 msgid "PMGR_MSG_CFG_SEDIT"
-msgstr "Zweiteditor wurde zu $REPLY gesetzt"
+msgstr "Zweiteditor ist nun:"
 
 msgid "PMGR_MSG_CFG_WRITE"
 msgstr "Schreibe Konfiguration..."
@@ -111,13 +112,13 @@ msgid "PMGR_MSG_SET_SKIP"
 msgstr "Installation uebersprungen"
 
 msgid "PMGR_MSG_ARG_INV"
-msgstr "Gegebene Argumente $@ nicht gueltig"
+msgstr "Gegebene Argumente %1 nicht gueltig"
 
 msgid "PMGR_MSG_PRJ_C_Q"
 msgstr "Moechten Sie es erstellen? (Ja/Nein)"
 
 msgid "PMGR_MSG_PRJ_C"
-msgstr "Erstelle neues Projekt $1"
+msgstr "Erstelle neues Projekt:"
 
 msgid "PMGR_MSG_PRJ_REM"
 msgstr "Projekt existiert auf Github"
@@ -129,7 +130,7 @@ msgid "PMGR_MSG_PRJ_REM_GET"
 msgstr "Kopiere Projekt von Git"
 
 msgid "PMGR_MSG_PRJ_OPN"
-msgstr "oeffne $1"
+msgstr "oeffne:"
 
 msgid "PMGR_MSG_PRJ_CUR"
 msgstr "Aktuelle Projekte"
@@ -141,7 +142,7 @@ msgid "PMGR_MSG_DEL_Q"
 msgstr "Moechten Sie wirklich $1 loeschen? (Ja/Nein)"
 
 msgid "PMGR_MSG_PRJ_DEL"
-msgstr "Loesche Projekt $1"
+msgstr "Loesche Projekt:"
 
 msgid "PMGR_MSG_PRJ_DEL_L"
 msgstr "Loesche lokales Projekt"
@@ -153,7 +154,7 @@ msgid "PMGR_MSG_PRJ_NO"
 msgstr "Projekt $1 existiert nicht!"
 
 msgid "PMGR_MSG_VER"
-msgstr "ProjectManager von FAO_Spikey - Version: $version"
+msgstr "ProjectManager von FAO_Spikey - Version:"
 
 msgid "PMGR_MSG_INF_CALL"
 msgstr "Aufruf: pmgr [ARG1]... [projekt]... [ARG2]"
