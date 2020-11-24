@@ -65,7 +65,7 @@ function pmgr (){
 				if [ ! -d "$cfgd" ]; then
 					echo $(gettext -e "PMGR_MSG_DIR_NO")	#Directorys not found
 					read -p "$(gettext -e "PMGR_MSG_DIR_C_Q")" -n 1 -r	#Do you wan't to create them
-					if [[ $REPLY =~ ^[Yy]$ ]]; then
+					if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY =~ ^[Jj]$ ]] ; then
 						echo
 						echo $(gettext -e "PMGR_MSG_DIR_C") #Creating Directorys
 						psetup "4"
@@ -90,7 +90,7 @@ function pmgr (){
 					echo $(gettext -e "PMGR_MSG_CFG_NO") #Config file not found
 					echo $(gettext -e "PMGR_MSG_CFG_C") #Creating new Config:
 					read -p "$(gettext -e "PMGR_MSG_CFG_C_D_Q")" -n 1 -r
-					if [[ $REPLY =~ ^[Yy]$ ]]; then
+					if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY =~ ^[Jj]$ ]]; then
 						echo
 						echo $(gettext -e "PMGR_MSG_CFG_C_E") #Creating default Config, please edit and set youre Values with pmgr -s -e
 						touch "$cfgf"
@@ -117,7 +117,7 @@ function pmgr (){
 						read -p "$(gettext -e "PMGR_MSG_CFG_USR_Q")" -r
 						echo "$(gettext -e "PMGR_MSG_CFG_USR") $REPLY" #Github Username set to $REPLY
 						local uname="$REPLY"
-						read -p "$(gettext -e "PMGR_MSG_CFG_TKN_Q)" -r
+						read -p "$(gettext -e "PMGR_MSG_CFG_TKN_Q")" -r
 						echo "$(gettext -e "PMGR_MSG_CFG_TKN") $REPLY" #Github Token set to $REPLY
 						local token="$REPLY"
 						echo $(gettext -e "PMGR_MSG_CFG_MEDIT_Q") #Which Editor do you wan't to use as main Editor?
@@ -206,7 +206,7 @@ function pmgr (){
 			"5")
 				echo $(gettext -e "PMGR_MSG_DEP_JQ") #Pmgr needed dependency jq not installed
 				read -p "$(gettext -e "PMGR_MSG_DEP_JQ_Q")" -n 1 -r
-				if [[ $REPLY =~ ^[Yy]$ ]]; then
+				if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY =~ ^[Jj]$ ]]; then
 					echo
 					echo $(gettext -e "PMGR_MSG_DEP_JQ_INST") #Installing jq
 					sudo apt-get install jq -y

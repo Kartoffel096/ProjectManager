@@ -172,7 +172,7 @@ msgid "PMGR_MSG_INF_L"
 msgstr " -l, --list		Listet alle verfuegbaren Projekte auf"
 
 msgid "PMGR_MSG_INF_R"
-msgstr " r, --remove		Loescht ein Projekt"
+msgstr " -r, --remove		Loescht ein Projekt"
 
 msgid "PMGR_MSG_INF_V"
 msgstr " -v, --version		Zeigt die Versions und Copyright Informationen"
