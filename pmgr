@@ -485,10 +485,14 @@ function pmgr (){
 		cd /tmp
 		(wget --no-check-certificate --content-disposition "https://raw.githubusercontent.com/Kartoffel096/ProjectManager/main/config.json") >/dev/null 2>&1
 		sleep 1
-		rversion="$( jq -r '.version' "/tmp/config.json" )"
-		#Check Git for Version and compare to Version in current config if git version is newer then ask user to download new version else do nothing
-		rm config.json
+		if exist config.json then
+			rversion="$( jq -r '.version' "/tmp/config.json" )"	
+		else
+			echo "Oops something wen't wrong - Config.json not found"
+		fi
+		if exists config.json rm config.json
 
+		#Check Git for Version and compare to Version in current config if git version is newer then ask user to download new version else do nothing
 		vercomp $rversion $version
 	    case $? in
 	        0) #Equal Version
