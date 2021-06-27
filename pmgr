@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 ####Automation of Projects####
@@ -13,25 +12,26 @@ function pmgr (){
 	##############################################
 	####Defining base strings for localization####
 	##############################################
-	export TEXTDOMAINDIR="/home/$USER/Dokumente/Projects/.Config/locale"
-	export TEXTDOMAIN="pmgr"
+	export TEXTDOMAINDIR
+	export TEXTDOMAIN
 
 	#########################################
 	##Defining all needed Variables Locally##
 	#########################################
-
-	local cfgf="/home/$USER/$(gettext -e "PMGR_PATH_DOC")/Projects/.Config/config.json"
-	local cfgd="/home/$USER/$(gettext -e "PMGR_PATH_DOC")/Projects/.Config"
+	
+	local ddir
+	local cfgf
+	local cfgd
 	local GH_User
 	local GH_Token
 	local projectdir
 	local maineditor
 	local secondaryeditor
-	local setup=false
-	local priv=true
-	local quiet=false
-	local edit=false
-	
+	local setup
+	local priv
+	local quiet
+	local edit
+
 	###########################
 	##Variable Reset Function##
 	###########################
@@ -42,12 +42,36 @@ function pmgr (){
 		edit=false
 	}
 
-	####################################################
-	##Setup Function for getting Variables from Config##
-	####################################################
+	#####################################################
+	##Setup Functions for getting Variables from Config##
+	#####################################################
+	function setenv() {
+		#Get Documents folder
+		local _ddir=$(grep -i DOCUMENTS_DIR ~/.config/user-dirs.dirs)
+		IFS=\/ read -a dDir <<<"$_ddir"
+		
+		#Adding values to Variables
+		ddir=${dDir[1]//\"/}
+		TEXTDOMAINDIR="$HOME/$ddir/Projects/.Config/locale"
+		TEXTDOMAIN="pmgr"
+		cfgf="$HOME/$ddir/Projects/.Config/config.json"
+		cfgd="$HOME/$ddir/Projects/.Config"
+		setup=false
+		priv=true
+		quiet=false
+		edit=false
+		
+		unset _ddir
+		unset dDir
+	
+	}
 
+	#Initial Checks befor launching Pmgr
 	function psetup() {
+		#Set all variables
+		setenv
 
+		#Continue with Setup
 		if [[ "$edit" == true ]]; then 
 			resetArgs
 			psetup "3"
@@ -99,7 +123,7 @@ function pmgr (){
 							echo '	"GH_Token": "",'
     						echo '	"GH_User": "",'
     						echo '	"version": "2.5.15",'
-    						echo '	"projectdir":' '"/home/'"$USER"'/$PMGR_PATH_DOC/Projects",'
+    						echo '	"projectdir":' ''"$HOME"'/$PMGR_PATH_DOC/Projects",'
     						echo '	"maineditor": "code",'
     						echo '	"secondaryeditor": "subl"'
 							echo '}'
@@ -485,12 +509,13 @@ function pmgr (){
 		cd /tmp
 		(wget --no-check-certificate --content-disposition "https://raw.githubusercontent.com/Kartoffel096/ProjectManager/main/config.json") >/dev/null 2>&1
 		sleep 1
-		if exist config.json then
+		if [ -f "config.json" ]; then
 			rversion="$( jq -r '.version' "/tmp/config.json" )"	
 		else
 			echo "Oops something wen't wrong - Config.json not found"
 		fi
-		if exists config.json rm config.json
+		if [ -f "config.json" ]; then rm config.json 
+		fi
 
 		#Check Git for Version and compare to Version in current config if git version is newer then ask user to download new version else do nothing
 		vercomp $rversion $version
@@ -544,12 +569,14 @@ function pmgr (){
 		return 2
 		}
 
+	
+	#Debug Function
 	function pdbg () {
 		##Debug Function for testing different stuff
 
 		#This will store all listed Projects in 1 Variable --> Later use for Autocompletion ;; TODO: MAKE AN AUTOCOMPLETION!
 		cd $projectdir
-		local list=$(ls -d)
+		local list=$(ls -D)
 		echo $list
 
 	}
@@ -584,7 +611,7 @@ function pmgr (){
 				psetup "1";;
 			"-v"|"--version")	pinf "version";;
 			"-u"|"--update")	pupd "";;
-			"-dgb")				pdbg "" "$3";;
+			"-dbg")				pdbg "" "$3";;
 			*)					pinf "";;
 		esac
 	else
