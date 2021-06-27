@@ -567,7 +567,7 @@ function pmgr (){
 	    esac
 		cd $cur_dir
 		return 2
-		}
+	}
 
 	
 	#Debug Function
