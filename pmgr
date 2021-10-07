@@ -602,6 +602,7 @@ function pmgr (){
 					echo $(gettext -e "PMGR_MSG_UPD_SU") #This action requires Sudo
 					curl -sL https://github.com/Kartoffel096/ProjectManager/archive/main.tar.gz | tar xz
 					cd "ProjectManager-main"
+					sudo cp patchnotes /tmp/patchnotes
 					sudo cp pmgr /bin/pmgr
 					sudo chmod +x /bin/pmgr
 					rm "$cfgf"
@@ -619,6 +620,20 @@ function pmgr (){
 					rm -r -d -f "ProjectManager-main"
 					version="$( jq -r '.version' "$cfgf" )"
 					echo $(gettext -e "PMGR_MSG_UPD_DONE") $version #Updated to version $version
+					read -p "Show Patchnotes?" -n 1 -r						#TODO: Localize
+					if [[ $REPLY =~ ^[Yy]$ ]]; then
+						echo "Patchnotes:"
+						while IFS= read -r line; do
+							echo "$line"
+						done < /tmp/patchnotes
+						sudo rm /tmp/patchnotes
+					elif [[ $REPLY =~ ^[Nn]$ ]]; then
+						sudo rm /tmp/patchnotes
+						return 0
+					else
+						sudo rm /tmp/patchnotes
+						return 0
+					fi
 					return 0
 				elif [[ $REPLY =~ ^[Nn]$ ]]; then
 					echo
