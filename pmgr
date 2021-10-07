@@ -264,6 +264,11 @@ function pmgr (){
 		local ind=0
 		local args
 
+		##Check if None Argument is passed then provide helpdesk otherwise get Arguments
+		if [[ -z $@ ]]; then
+			pinf ""
+		fi
+
 		##Populate args array with given Arguments
 		for i in "$@"
 		do
@@ -274,13 +279,80 @@ function pmgr (){
 		for i in "${args[@]}"
 		do
 			case $i in
-				"-n"|"--noout")
-					quiet=true;;
-				"-p"|"--public")
-					priv=false;;
-				"-e"|"--edit")
-					edit=true;;
-				*) echo;;
+				"-c"|"--create")
+					if [[ -z ${args[$i+1]} ]]; then
+						echo "No Arguments given for PROJECTNAME"				#TODO: Localize
+					else
+						case ${args[$i+2]} in
+							"-n"|"--noout")
+								quiet=true;;
+							"-p"|"--public")
+								priv=false;;
+							"")					#No Argument
+								;;
+							*)					#Some Unknown Arument
+								echo "Unknown Argument ${args[$i+2]}";;
+						esac
+						pcreate "${args[$i+1]}"
+					fi;;
+				"-o"|"--open")
+					if [[ -z ${args[$i+1]} ]]; then
+						echo "No Arguments given for PROJECTNAME"				#TODO: Localize
+					else		
+						popen "${args[$i+1]}"
+					fi;;
+				"-l"|"--list")	
+					if [[ -z ${args[$i+1]} ]]; then	
+						plist ""
+					else
+						echo "To many Arguments given for LIST"					#Todo: Localize
+					fi;;
+				"-r"|"--remove")
+					if [[ -z ${args[$i+1]} ]]; then
+						echo "No Arguments given for PROJECTNAME"				#TODO: Localize
+					else	
+						prem "${args[$i+1]}"
+					fi;;
+				"-s"|"--setup")
+					if [[ -z ${args[$i+1]} ]]; then	
+						case ${args[$i+2]} in
+							"-e"|"--edit")
+								edit=true;;
+							"")
+								;;
+							*)
+								echo "Unknown Argument ${args[$i+2]}";;
+						esac
+						psetup "1"
+					else
+						echo "To many Arguments given for SETUP"					#Todo: Localize
+					fi;;
+				"-v"|"--version")	
+					if [[ -z ${args[$i+1]} ]]; then	
+						pinf "version"
+					else
+						echo "To many Arguments given for VERSION"					#Todo: Localize
+					fi;;
+				"-u"|"--update")
+					if [[ -z ${args[$i+1]} ]]; then		
+						pupd ""
+					else
+						echo "To many Arguments given for UPDATE"					#Todo: Localize
+					fi;;
+				"-dbg")				
+					pdbg "" "$3";;
+				"-code")
+					pcode "";;
+				"-trial") #Get Argument Parameters
+					if [[ ! -z ${args[$i+1]} ]]; then
+						echo ${args[$i+1]}
+					else
+						echo "No Parameters passed to Argument -trial"
+					fi;;
+				"")
+					;;
+				*)
+					echo "Unknown Argument ${args[$i]}"
 			esac
 			((ind++))
 		done
@@ -460,6 +532,7 @@ function pmgr (){
 				echo $(gettext -e "PMGR_MSG_INF_U") #	-u, --update 		Searches for Updates
 				echo $(gettext -e "PMGR_MSG_INF_S") #	-s, --setup 		Setup function to create or edit Config
 				echo $(gettext -e "PMGR_MSG_INF_H") #  	--help 			Shows this Help dialog
+				echo "-code 			Edit PMGR Source (only in Developer Version)" #  	-code 			Edit PMGR Source (only in Developer Version)
 				echo
 				echo $(gettext -e "PMGR_MSG_INF_ARG") #ARG2:
 				echo $(gettext -e "PMGR_MSG_INF_N") #	-n, --noout		Quiet Mode
@@ -580,6 +653,14 @@ function pmgr (){
 		echo $list
 
 	}
+
+	#Function for editing this File
+	function pcode () {
+		cd /usr/bin
+		echo "Creating Backup File pmgr.bck in /usr/bin/"
+		sudo cp pmgr pmgr.bck
+		code pmgr
+	}
 	####################
 	##End Base Defines##
 	####################
@@ -598,22 +679,28 @@ function pmgr (){
 		
 		ReadArgs $@
 
-		case "$1" in
-			"-c"|"--create")
-				pcreate "$2";;
-			"-o"|"--open")		
-				popen "$2";;
-			"-l"|"--list")		
-				plist "$2";;
-			"-r"|"--remove")	
-				prem "$2";;
-			"-s"|"--setup")
-				psetup "1";;
-			"-v"|"--version")	pinf "version";;
-			"-u"|"--update")	pupd "";;
-			"-dbg")				pdbg "" "$3";;
-			*)					pinf "";;
-		esac
+		#case "$1" in
+			#"-c"|"--create")
+			#	pcreate "$2";;
+			#"-o"|"--open")		
+			#	popen "$2";;
+			#"-l"|"--list")		
+			#	plist "$2";;
+			#"-r"|"--remove")	
+			#	prem "$2";;
+			#"-s"|"--setup")
+			#	psetup "1";;
+			#"-v"|"--version")	
+			#	pinf "version";;
+			#"-u"|"--update")	
+			#	pupd "";;
+			#"-dbg")				
+			#	pdbg "" "$3";;
+			#"-code")
+			#	pcode "";;
+			#*)					
+			#	pinf "";;
+		#esac
 	else
 		return 3
 	fi
