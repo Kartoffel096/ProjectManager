@@ -597,7 +597,7 @@ function pmgr (){
 				echo;;
 	        1) #remote newer
 				read -p "$(gettext -e "PMGR_MSG_UPD_NEW")" -n 1 -r
-				if [[ $REPLY =~ ^[Yy]$ ]]; then
+				if [[ $REPLY =~ ^[YyJj]$ ]]; then
 					echo
 					echo $(gettext -e "PMGR_MSG_UPD_SU") #This action requires Sudo
 					curl -sL https://github.com/Kartoffel096/ProjectManager/archive/main.tar.gz | tar xz
@@ -620,8 +620,10 @@ function pmgr (){
 					rm -r -d -f "ProjectManager-main"
 					version="$( jq -r '.version' "$cfgf" )"
 					echo $(gettext -e "PMGR_MSG_UPD_DONE") $version #Updated to version $version
+					
+					###Show Patchnotes
 					read -p "Show Patchnotes?" -n 1 -r						#TODO: Localize
-					if [[ $REPLY =~ ^[Yy]$ ]]; then
+					if [[ $REPLY =~ ^[YyJj]$ ]]; then
 						echo "Patchnotes:"
 						while IFS= read -r line; do
 							echo "$line"
@@ -634,6 +636,7 @@ function pmgr (){
 						sudo rm /tmp/patchnotes
 						return 0
 					fi
+					###
 					return 0
 				elif [[ $REPLY =~ ^[Nn]$ ]]; then
 					echo
@@ -651,7 +654,7 @@ function pmgr (){
 					return 3
 				fi;;
 	        2) #local newer
-				echo;;
+				;;
 	    esac
 		cd $cur_dir
 		return 2
