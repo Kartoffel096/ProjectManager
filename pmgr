@@ -544,6 +544,7 @@ function pmgr (){
 
 	#Update Function for Updating the Project Manager to the latest version
 	function pupd () {
+		echo "Checking for Updates..."			#TODO: Localize
 		local cur_dir="$(pwd)"
 		local rversion
 
@@ -594,8 +595,9 @@ function pmgr (){
 		vercomp $rversion $version
 	    case $? in
 	        0) #Equal Version
-				echo;;
+				echo "No Updates found you are up to date";;		#TODO: Localize
 	        1) #remote newer
+				echo "Update found, Current Version: $version ;New Version: $rversion"		#TODO: Localize
 				read -p "$(gettext -e "PMGR_MSG_UPD_NEW")" -n 1 -r
 				if [[ $REPLY =~ ^[YyJj]$ ]]; then
 					echo
@@ -619,12 +621,13 @@ function pmgr (){
 					cd /tmp
 					rm -r -d -f "ProjectManager-main"
 					version="$( jq -r '.version' "$cfgf" )"
-					echo $(gettext -e "PMGR_MSG_UPD_DONE") $version #Updated to version $version
+					echo "$(gettext -e "PMGR_MSG_UPD_DONE") $version" #Updated to version $version
 					
 					###Show Patchnotes
-					read -p "Show Patchnotes?" -n 1 -r						#TODO: Localize
+					read -p "Show Patchnotes? [Y/N]" -n 1 -r						#TODO: Localize
 					if [[ $REPLY =~ ^[YyJj]$ ]]; then
 						echo "Patchnotes:"
+						echo
 						while IFS= read -r line; do
 							echo "$line"
 						done < /tmp/patchnotes
