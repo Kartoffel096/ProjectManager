@@ -621,7 +621,7 @@ function pmgr (){
 					cd /tmp
 					rm -r -d -f "ProjectManager-main"
 					version="$( jq -r '.version' "$cfgf" )"
-					echo "$(gettext -e "PMGR_MSG_UPD_DONE") $version" #Updated to version $version
+					echo "$(gettext -e "PMGR_MSG_UPD_DONE") $version" #Updated to version $version 		TODO: Fix Message
 					
 					###Show Patchnotes
 					read -p "Show Patchnotes? [Y/N]" -n 1 -r						#TODO: Localize
@@ -690,13 +690,14 @@ function pmgr (){
 	##Calling Main Functions##
 	##########################
 
-	psetup "1"
-	pupd 
+	psetup "1"		#CHeck for Dependencys and Integrity of Files
+	pupd 			#Checking for Updates at Startup 		TODO: Make Config entry to enable/disable Update Checking
+
 	if [[ "$?" == 0 ]]; then
 		return 0
 	fi
 
-	if [[ "$setup" == "true" ]]; then
+	if [[ "$setup" == "true" ]]; then	#If Integrity check is allright then Get Arguments and Start PMGR
 		
 		ReadArgs $@
 
@@ -729,4 +730,4 @@ function pmgr (){
 	#####################################################
 }
 
-pmgr $@
+pmgr $@		#Entry Point for Running this Script
