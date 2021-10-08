@@ -1,8 +1,9 @@
 {
 	"GH_Token": "",
 	"GH_User": "",
-	"version": "2.5.19",
+	"version": "2.5.20",
 	"projectdir": "",
 	"maineditor": "code",
-	"secondaryeditor": "subl"
+	"secondaryeditor": "subl",
+	"UpdateAtStartup": "True"
 }

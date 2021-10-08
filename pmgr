@@ -113,7 +113,7 @@ function pmgr (){
 				else
 					echo $(gettext -e "PMGR_MSG_CFG_NO") #Config file not found
 					echo $(gettext -e "PMGR_MSG_CFG_C") #Creating new Config:
-					read -p "$(gettext -e "PMGR_MSG_CFG_C_D_Q")" -n 1 -r
+					read -p "$(gettext -e "PMGR_MSG_CFG_C_D_Q")" -n 1 -r	#Create Config with default config ? [y/n]
 					if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY =~ ^[Jj]$ ]]; then
 						echo
 						echo $(gettext -e "PMGR_MSG_CFG_C_E") #Creating default Config, please edit and set youre Values with pmgr -s -e
@@ -125,7 +125,8 @@ function pmgr (){
     						echo '	"version": "2.5.15",'
     						echo '	"projectdir":' ''"$HOME"'/$PMGR_PATH_DOC/Projects",'
     						echo '	"maineditor": "code",'
-    						echo '	"secondaryeditor": "subl"'
+    						echo '	"secondaryeditor": "subl",'
+							echo '  "UpdateAtStartup": "True"'
 							echo '}'
 						} >> "$cfgf"
 						echo $(gettext -e "PMGR_MSG_CFG_DONE") #Config Setup Done...
@@ -144,6 +145,9 @@ function pmgr (){
 						read -p "$(gettext -e "PMGR_MSG_CFG_TKN_Q")" -r
 						echo "$(gettext -e "PMGR_MSG_CFG_TKN") $REPLY" #Github Token set to $REPLY
 						local token="$REPLY"
+						#
+
+						#Main Editor
 						echo $(gettext -e "PMGR_MSG_CFG_MEDIT_Q") #Which Editor do you wan't to use as main Editor?
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_CODE") #[1] VSCode
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_SUBL") #[2] Sublime
@@ -162,6 +166,9 @@ function pmgr (){
 								clear
 						esac
 						echo "$(gettext -e "PMGR_MSG_CFG_MEDIT") $REPLY" #Maineditor set to $REPLY
+						#
+
+						#Secondary Editor
 						echo $(gettext -e "PMGR_MSG_CFG_SEDIT_Q") #Which Editor do you wan't to use as Secondary Editor?
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_CODE") #[1] VSCode
 						echo $(gettext -e "PMGR_MSG_CFG_EDIT_SUBL") #[2] Sublime
@@ -180,6 +187,23 @@ function pmgr (){
 								clear
 						esac
 						echo "$(gettext -e "PMGR_MSG_CFG_SEDIT") $REPLY" #Secondary Editor set to $REPLY
+						#
+
+						#Updates at Startup
+						read -p "Do you wan't to check for Updates at Startup? [Y/N]" -r
+						if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY =~ ^[Jj]$ ]]; then
+							local update="True"
+							echo "Enabled Updates at Startup"
+						elif [[ $REPLY =~ ^[Nn]$ ]]; then
+							local update="False"
+							echo "Disabled Updates at Startup"
+						else
+							local update="True"
+							echo $(gettext -e "PMGR_MSG_INP_INV") #Invalid input \n Skipping...
+							echo "Enabled Updates at Startup"
+						fi	
+						#
+						
 						echo $(gettext -e "PMGR_MSG_CFG_WRITE") #Writing Config...
 						touch "$cfgf"
 						{
@@ -189,7 +213,8 @@ function pmgr (){
     						echo '	"version": "2.5.15",'
     						echo '	"projectdir":' '"'"$pdir"'",'
     						echo '	"maineditor":' '"'"$medit"'",'
-    						echo '	"secondaryeditor:' '"'"$sedit"'"'
+    						echo '	"secondaryeditor:' '"'"$sedit"'",'
+							echo '  "UpdateAtStartup":' '"'"$update"'"'
 							echo '}'
 						} >> "$cfgf"
 						echo $(gettext -e "PMGR_MSG_CFG_DONE") #Config Setup Done...
@@ -211,6 +236,7 @@ function pmgr (){
 					version="$( jq -r '.version' "$cfgf" )"
 					maineditor="$( jq -r '.maineditor' "$cfgf" )"
 					secondaryeditor="$( jq -r '.secondaryeditor' "$cfgf" )"
+					checkupdt="$( jq -r '.UpdateAtStartup' "$cfgf" )"
 					setup=true
 					;;
 			"3")
@@ -290,8 +316,6 @@ function pmgr (){
 								priv=false;;
 							"")					#No Argument
 								;;
-							*)					#Some Unknown Arument
-								echo "Unknown Argument ${args[$i+2]}";;
 						esac
 						pcreate "${args[$i+1]}"
 					fi;;
@@ -320,8 +344,6 @@ function pmgr (){
 								edit=true;;
 							"")
 								;;
-							*)
-								echo "Unknown Argument ${args[$i+2]}";;
 						esac
 						psetup "1"
 					else
@@ -351,8 +373,6 @@ function pmgr (){
 					fi;;
 				"")
 					;;
-				*)
-					echo "Unknown Argument ${args[$i]}"
 			esac
 			((ind++))
 		done
@@ -544,6 +564,9 @@ function pmgr (){
 
 	#Update Function for Updating the Project Manager to the latest version
 	function pupd () {
+		if [[ checkupdt == "False" ]]; then
+			return 0
+		fi
 		echo "Checking for Updates..."			#TODO: Localize
 		local cur_dir="$(pwd)"
 		local rversion
@@ -624,9 +647,9 @@ function pmgr (){
 					echo "$(gettext -e "PMGR_MSG_UPD_DONE") $version" #Updated to version $version 		TODO: Fix Message
 					
 					###Show Patchnotes
-					read -p "Show Patchnotes? [Y/N]" -n 1 -r						#TODO: Localize
+					read -p "$(gettext -e "PMGR_MSG_UPD_PATCHNOTES")" -n 1 -r
 					if [[ $REPLY =~ ^[YyJj]$ ]]; then
-						echo "Patchnotes:"
+						echo "Patchnotes:"											#TODO: Localize
 						echo
 						while IFS= read -r line; do
 							echo "$line"
@@ -690,8 +713,8 @@ function pmgr (){
 	##Calling Main Functions##
 	##########################
 
-	psetup "1"		#CHeck for Dependencys and Integrity of Files
-	pupd 			#Checking for Updates at Startup 		TODO: Make Config entry to enable/disable Update Checking
+	psetup "1"		#Check for Dependencys and Integrity of Files
+	pupd 			#Checking for Updates at Startup
 
 	if [[ "$?" == 0 ]]; then
 		return 0
