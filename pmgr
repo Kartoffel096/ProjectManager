@@ -27,6 +27,7 @@ function pmgr (){
 	local projectdir
 	local maineditor
 	local secondaryeditor
+	local checkupdt
 	local setup
 	local priv
 	local quiet
@@ -60,6 +61,7 @@ function pmgr (){
 		priv=true
 		quiet=false
 		edit=false
+		
 		
 		unset _ddir
 		unset dDir
@@ -638,7 +640,8 @@ function pmgr (){
     					echo '	"version":' '"'"$rversion"'",'
     					echo '	"projectdir":' '"'"$projectdir"'",'
     					echo '	"maineditor":' '"'"$maineditor"'",'
-    					echo '	"secondaryeditor":' '"'"$secondaryeditor"'"'
+    					echo '	"secondaryeditor":' '"'"$secondaryeditor"'",'
+						echo '  "UpdateAtStartup":' '"'"$checkupdt"'"'
 						echo '}'
 					} >> "$cfgf"
 					cd /tmp
