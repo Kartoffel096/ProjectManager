@@ -620,7 +620,8 @@ function pmgr (){
 		vercomp $rversion $version
 	    case $? in
 	        0) #Equal Version
-				echo "No Updates found you are up to date";;		#TODO: Localize
+				echo "No Updates found you are up to date"		#TODO: Localize
+				return 3;;
 	        1) #remote newer
 				echo "Update found, Current Version: $version ;New Version: $rversion"		#TODO: Localize
 				read -p "$(gettext -e "PMGR_MSG_UPD_NEW")" -n 1 -r
